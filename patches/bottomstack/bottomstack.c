@@ -17,7 +17,7 @@ bstack(Monitor *m)
 
   if(n == 1){
     c = nexttiled(m->clients);
-    resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+    resize(c, m->wx + m->gappx, m->wy + m->gappx, m->ww - 2 * c->bw - m->gappx * 2, m->wh - 2 * c->bw - m->gappx * 2, 0);
     return;
   }
 
@@ -31,13 +31,15 @@ bstack(Monitor *m)
   {
     if (i < m->nmaster) {
       w = (m->ww - mx) * (c->cfact / mfacts) - m->gappx;
-      resize(c, m->wx + mx, m->wy, w - (2*c->bw), mh - 2*c->bw + m->gappx, 0);
-      mx += WIDTH(c) + m->gappx;
+      resize(c, m->wx + mx, m->wy, w - (2*c->bw) + (m->gappx / 2), mh - 2*c->bw, 0);
+      //mx += WIDTH(c) + m->gappx;
+      mx += w - (2*c->bw) + m->gappx;
       mfacts -= c->cfact;
     } else {
       w = (m->ww - tx) * (c->cfact / sfacts) - m->gappx;
-      resize(c, m->wx + tx, m->wy + mh, w - (2*c->bw), m->wh - mh - 2*(c->bw) + m->gappx, 0);
-      tx += WIDTH(c) + m->gappx;
+      resize(c, m->wx + tx, m->wy + mh - m->gappx, w - (2*c->bw), m->wh - mh - 2*(c->bw) + m->gappx, 0);
+      //tx += WIDTH(c) + m->gappx;
+      tx += w - (2*c->bw) + m->gappx;
       sfacts -= c->cfact;
     }
   }
