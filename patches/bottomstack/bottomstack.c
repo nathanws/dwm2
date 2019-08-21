@@ -30,14 +30,14 @@ bstack(Monitor *m)
   for (i = 0, mx = tx = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
   {
     if (i < m->nmaster) {
-      w = (m->ww - mx) * (c->cfact / mfacts);
-      resize(c, m->wx + mx, m->wy, w - (2*c->bw), mh - 2*c->bw, 0);
-      mx += WIDTH(c);
+      w = (m->ww - mx) * (c->cfact / mfacts) - m->gappx;
+      resize(c, m->wx + mx, m->wy, w - (2*c->bw), mh - 2*c->bw + m->gappx, 0);
+      mx += WIDTH(c) + m->gappx;
       mfacts -= c->cfact;
     } else {
-      w = (m->ww - tx) * (c->cfact / sfacts);
-      resize(c, m->wx + tx, m->wy + mh, w - (2*c->bw), m->wh - mh - 2*(c->bw), 0);
-      tx += WIDTH(c);
+      w = (m->ww - tx) * (c->cfact / sfacts) - m->gappx;
+      resize(c, m->wx + tx, m->wy + mh, w - (2*c->bw), m->wh - mh - 2*(c->bw) + m->gappx, 0);
+      tx += WIDTH(c) + m->gappx;
       sfacts -= c->cfact;
     }
   }
@@ -76,14 +76,14 @@ bstackhoriz(Monitor *m)
 
   for (i = ty = 0, my = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
     if (i < m->nmaster) {
-      h = (mh - my) * (c->cfact / mfacts);
+      h = (mh - my) * (c->cfact / mfacts) - m->gappx;
       resize(c, m->wx, m->wy + my, mw - 2*c->bw, h - 2*c->bw, 0);
-      my += HEIGHT(c);
+      my += HEIGHT(c) + m->gappx;
       mfacts -= c->cfact;
     } else {
-      h = (m->wh - mh - ty) * (c->cfact / sfacts);
+      h = (m->wh - mh - ty) * (c->cfact / sfacts) - m->gappx;
       resize(c, m->wx, m->wy + mh + ty, mw - 2*c->bw, h - (2*c->bw), 0);
-      ty += HEIGHT(c);
+      ty += HEIGHT(c) + m->gappx;
       sfacts -= c->cfact;
     }
   }
