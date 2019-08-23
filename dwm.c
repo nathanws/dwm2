@@ -44,6 +44,9 @@
 #include "drw.h"
 #include "util.h"
 
+/* patches */
+#include "patches/autostart/autostart.c"
+
 /* macros */
 #define BUTTONMASK              (ButtonPressMask|ButtonReleaseMask)
 #define CLEANMASK(mask)         (mask & ~(numlockmask|LockMask) & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
@@ -2165,6 +2168,7 @@ main(int argc, char *argv[])
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
+        runAutostart();
 	run();
 	cleanup();
 	XCloseDisplay(dpy);
