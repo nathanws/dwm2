@@ -77,6 +77,8 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *mutecmd[] = { "amixer", "sset", "Master", "toggle" };
 static const char *voldncmd[] = { "amixer", "sset", "Master", "5%-" };
 static const char *volupcmd[] = { "amixer", "sset", "Master", "5%+" };
+static const char *m1wallcmd[] = { "/home/n/.config/scripts/wall0.sh", NULL};
+static const char *m2wallcmd[] = { "/home/n/.config/scripts/wall1.sh", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -115,6 +117,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0 } },
+	{ MODKEY,                       XK_F1,     spawn,          {.v = m1wallcmd } },
+	{ MODKEY,                       XK_F2,     spawn,          {.v = m2wallcmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
